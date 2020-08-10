@@ -4,7 +4,7 @@ Author: Esteban Santilán
 
 API desarrollada con el framework CodeIgniter utilizando la librería de Cris kacerguis "CodeIgniter RestServer" y basado en el proyecto de Ruslan Gonzales "RESTFUL API with CodeIgniter"
 
-### Contribution TODO for this API Features
+### Lista de tareas de características para esta API
 
 #### DB
 - [x] tables & views
@@ -35,12 +35,6 @@ API desarrollada con el framework CodeIgniter utilizando la librería de Cris ka
 - [ ] agregar método index al controlador de "Usuario"
 - [ ] Modification timestamps/ Search by criteria
 - [ ] Crear método para crear usuario (a nivel de sql, con los permisos mínimos)
-- [ ] User roles
-- [ ] Dynamic Menu
-- [ ] Upload Documents and Images with restrictions
-- [ ] Consuming Examples
-- [ ] API documentation
-- [ ] Project documentation
 
 ### Créditos
 * [CI Framework](https://codeigniter.com/)
