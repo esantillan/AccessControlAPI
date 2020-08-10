@@ -1,39 +1,40 @@
-# RESTFUL API with CodeIgniter
+# RESTFUL API para el Control de Acceso utilizando JWT
 
- [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
- [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/ruslanguns/codeigniter-restful/graphs/commit-activity)
- [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://github.com/ruslanguns)
- [![GitHub contributors](https://img.shields.io/github/contributors/ruslanguns/codeigniter-restful.svg)](https://GitHub.com/ruslanguns/codeigniter-restful/graphs/contributors/)
- [![GitHub issues](https://img.shields.io/github/issues/ruslanguns/codeigniter-restful.svg)](https://GitHub.com/ruslanguns/codeigniter-restful/issues/)
+Author: Esteban Santilán
 
-Author: Ruslan Gonzalez
-
-[![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](https://github.com/ruslanguns/fullstack-mean-for-angular/)
-
-This is an in-process project for creating a good API with CodeIgniter.
-
-### POSTMAN API
-[Check the API](https://documenter.getpostman.com/view/2862569/S1EUvc8W)
-
-### Download DB tables
-Comming soon...
-
-Nota: 
-Si quieres contribuir con el proyecto siéntete libre en hacerle un fork y enviarme como pull request tus mejoras para que juntos creemos algo muy asombroso.
+API desarrollada con el framework CodeIgniter utilizando la librería de Cris kacerguis "CodeIgniter RestServer" y basado en el proyecto de Ruslan Gonzales "RESTFUL API with CodeIgniter"
 
 ### Contribution TODO for this API Features
 
-- [x] CRUD API (GET, PUT, POST, DELETE)
-- [x] Pagination
-- [x] CI Token Implementation
-- [x] Whitelist && Blacklist
-- [x] CI Logs for every API Request
-- [x] Pagination Helper for API Requests
-- [x] JWT for PHP
-- [x] Login App for JWT
-- [x] DB Test with JWT
+#### DB
+- [x] tables & views
+- [x] constraints & indices
+- [x] tablas de auditoría & triggers
+- [x] algo de informacion para poder comenzar a desarrollar la api
+- [ ] Añadir rol y opciones para ver registros de auditoría (readonly)
+- [ ] ir añadiendo opciones a medida que desarrolle la API de sistema de coutas
+- [ ] crear usuario para la API (dejar de usar "root")
+- [ ] crear usuario para la API del sistema de cuotas
+- [ ] script para crear usuarios y asignarle permisos mínimos sobre la bd access_control
+
+#### Configuracion del proyecto
+- [x] sanitize_string: metodo ubicado en sanitizer_helper, que sanea strings (el método xss() de CI no se puede utilizar para contraseñas y ha sido eliminado en CI4, por lo que hay que evitar su uso)
+- [x] adaptacion de la libreria para trabajar con JWT: para facilitar las pruebas con PostMan, modifiqué Authorization_Token para quitar la palabra "Bearer" y el espacio (ya que esto produce errores al intentar leer ese "prefijo" como parte del JWT)
+- [x] Configuraciones inciales del proyecto: deshabilite el uso de la "api keys" y "log" del proyecto como elimine archivos del proyecto de ruslan que no utilizaré (como controladores y helpers)
+- [ ] Quitar carpeta "user_guide"
+- [ ] Quitar controlador y vista "Welcome"
+- [ ] Establecer controlador "Usuario" como predeterminado
+- [ ] Establecer la constante ENVIROMENT en "production" antes del deploy
+
+#### Métodos API
+- [x] token (login): para obtener JWT a partir del username (nick o email) y la contraseña
+- [x] checkPermission: comprueba si se tiene permiso para acceder al $resource proporcionado como parámetro (primero valida el token)
+- [x] getPermissions: a partir del parámetro $system  y del $user->id_user (que se encuentra en el JWT) retornar todos los permisos (primero valida el token)
+- [ ] Crear métodos ABM para c/u de las tablas (excepto auditoría)
+- [ ] Crear métodos para ver registros de auditoría
+- [ ] agregar método index al controlador de "Usuario"
 - [ ] Modification timestamps/ Search by criteria
-- [ ] Sorting Helper for requests
+- [ ] Crear método para crear usuario (a nivel de sql, con los permisos mínimos)
 - [ ] User roles
 - [ ] Dynamic Menu
 - [ ] Upload Documents and Images with restrictions
@@ -41,7 +42,8 @@ Si quieres contribuir con el proyecto siéntete libre en hacerle un fork y envia
 - [ ] API documentation
 - [ ] Project documentation
 
-### Credits
+### Créditos
 * [CI Framework](https://codeigniter.com/)
 * [@Klerith](https://github.com/Klerith)
 * [@chriskacerguis](https://github.com/chriskacerguis/codeigniter-restserver)
+* [@Ruslan Gonzalez](https://github.com/ruslanguns/codeigniter-restful)
