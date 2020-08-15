@@ -22,12 +22,17 @@ $config = [
     // corroborar que se tenga permiso para acceder al recurso
     'checkPermission' => [
         [
-            'field' => 'resources',
-            'label' => 'recursos',
+            'field' => 'resource',
+            'label' => 'recurso',
             'rules' => 'trim|required'
         ],
         [
-            'field' => 'system',
+            'field' => 'system_code',
+            'label' => 'sistema',
+            'rules' => 'trim|required'
+        ],
+        [
+            'field' => 'system_version',
             'label' => 'sistema',
             'rules' => 'trim|required'
         ]

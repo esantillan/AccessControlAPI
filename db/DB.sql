@@ -97,6 +97,7 @@ SELECT
     , s.id_sistema
     , s.codigo AS codigo_sistema
     , s.descripcion AS descripcion_sistema
+    , s.version
 FROM usuario u
 	JOIN usuario_rol ur ON ur.usuario_id = u.id_usuario
 	JOIN rol r ON ur.rol_id = r.id_rol
@@ -765,7 +766,7 @@ DELIMITER ;
 /*****************************************************
 * Inserts                                            *
 ******************************************************/
-INSERT INTO `access_control`.`sistema` (`descripcion`, `codigo`, `version`) VALUES ('Sistema de cuotas online', 'siscuota_online', '1.0.0');
+INSERT INTO `access_control`.`sistema` (`descripcion`, `codigo`, `version`) VALUES ('Sistema de cuotas online', 'sicu', '1.0.0');
 
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Alumno', 'controlador de alumnos', 'alumno', '1');
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Apariencia', 'controlador de apariencia', 'apariencia', '1');
@@ -840,6 +841,15 @@ SELECT
 FROM Opcion o
 WHERE opcion_padre_id IS NULL;
 
+INSERT INTO opcion (codigo,descripcion,recurso,opcion_padre_id,sistema_id)/*FIXME No todos los controladores tendrán este método*/
+SELECT 
+   CONCAT(codigo, '_getAll')
+   , CONCAT('Método getAll() del controlador ', codigo)
+   , CONCAT(recurso, '/getAll')
+   , id_opcion
+   , 1
+FROM Opcion o
+WHERE opcion_padre_id IS NULL;
 
 INSERT INTO rol_opcion (opcion_id,rol_id) SELECT o.id_opcion,1 FROM opcion o WHERE NOT EXISTS(SELECT 1 FROM rol_opcion ro WHERE ro.opcion_id = o.id_opcion AND ro.rol_id = 1);
 INSERT INTO rol_opcion (opcion_id,rol_id) SELECT o.id_opcion

@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 require APPPATH .  'models/DTO/Usuario_DTO.php';
 require APPPATH .  'models/DTO/V_Usuario_Opciones_DTO.php';
 
@@ -31,34 +31,34 @@ class Usuario_Repository extends CI_Model
      * Valida que el usuario tenga permisos y retorna TRUE o FALSE
      * @param resource (string) recurso
      */
-    public function getPermissionByUser ($user, $resource, $system)
+    public function getPermissionByUser($user, $resource, $system_code, $system_version)
     {
-
         $result = $this->db->select()
                             ->group_start()
                                 ->where('codigo_opcion', $resource)
                                 ->or_where('recurso', $resource)
                             ->group_end()
                             ->where('id_usuario', $user->id_usuario)
-                            ->where('codigo_sistema', $system)
+                            ->where('codigo_sistema', $system_code)
+                            ->like('version', $system_version . '.', 'after')//Ej.: "version LIKE '1.%'"
                             ->get($this->permisos_usuario);
-
+        log_message('debug',$this->db->last_query());
         return $result->row(0, 'V_Usuario_Opciones_DTO');
     }
 
     /**
-     * Devuelve todas las opciones del 
+     * Devuelve todas las opciones del
      * @param system (string) codigo_sistema
      */
-    public function getPermissionsByUser ($user, $system)
+    public function getPermissionsByUser($user, $system_code, $system_version)
     {
-
         $result = $this->db->select(['id_opcion', 'descripcion_opcion', 'recurso'])
                             ->distinct()
                             ->where('id_usuario', $user->id_usuario)
-                            ->where('codigo_sistema', $system)
+                            ->where('codigo_sistema', $system_code)
+                            ->like('version', $system_version . '.', 'after')//Ej.: "version LIKE '1.%'"
                             ->get($this->permisos_usuario);
 
-        return $result->result();//devuelvo el objeto StdClass para reducir el tamaño de los datos devueltos //SEE 
+        return $result->result();//devuelvo el objeto StdClass para reducir el tamaño de los datos devueltos //SEE
     }
 }

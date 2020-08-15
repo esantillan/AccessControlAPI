@@ -39,8 +39,7 @@ class Authorization_Token
      * ( 1 Day ) : 60 * 60 * 24 = 86400
      * ( 1 Hour ) : 60 * 60     = 3600
      */
-    protected $token_expire_time = 3600;//FIXME para pruebas establezco la validez del token en 5 minutos
-
+    protected $token_expire_time = 86400;//FIXME para pruebas establezco la validez del token en 1 día
 
     public function __construct()
 	{
