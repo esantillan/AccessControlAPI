@@ -779,7 +779,7 @@ INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sist
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Deudores', 'controlador de deudores', 'deudores', '1');
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Division', 'controlador de Division', 'division', '1');
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Pagos', 'controlador de Pagos', 'pagos', '1');
-INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Parametros', 'controlador de Parametros', 'parametros', '1');
+INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Parametro', 'controlador de Parametro', 'parametro', '1');
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('PermisoExamen', 'controlador de PermisoExamen', 'permiso_examen', '1');
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('ReservaVacante', 'controlador de ReservaVacante', 'reserva_vacante', '1');
 
@@ -788,7 +788,7 @@ INSERT INTO `access_control`.`rol` (`descripcion`) VALUES ('administrador');
 INSERT INTO `access_control`.`rol` (`descripcion`) VALUES ('administrativo');
 
 INSERT INTO rol_opcion (opcion_id,rol_id) SELECT o.id_opcion,1 FROM opcion o;
-INSERT INTO rol_opcion (opcion_id,rol_id) SELECT o.id_opcion,2 FROM opcion o WHERE o.codigo NOT IN('Apariencia','Bancos','Becas','Parametros');
+INSERT INTO rol_opcion (opcion_id,rol_id) SELECT o.id_opcion,2 FROM opcion o WHERE o.codigo NOT IN('Apariencia','Bancos','Becas','Parametro');
 
 INSERT INTO opcion (codigo,descripcion,recurso,opcion_padre_id,sistema_id)
 SELECT 
@@ -855,11 +855,11 @@ INSERT INTO rol_opcion (opcion_id,rol_id) SELECT o.id_opcion,1 FROM opcion o WHE
 INSERT INTO rol_opcion (opcion_id,rol_id) SELECT o.id_opcion
                                              , 2 
                                        FROM opcion o 
-                                                   WHERE o.codigo NOT IN('Apariencia','Bancos','Becas','Parametros') 
+                                                   WHERE o.codigo NOT IN('Apariencia','Bancos','Becas','Parametro') 
                                           AND NOT EXISTS(SELECT 1 
                                                    FROM opcion o2 
                                                                   WHERe o.opcion_padre_id = o2.id_opcion
-                                                      AND o2.codigo IN('Apariencia','Bancos','Becas','Parametros'))
+                                                      AND o2.codigo IN('Apariencia','Bancos','Becas','Parametro'))
                                           AND NOT EXISTS(SELECT 1 
                                                    FROM rol_opcion ro 
                                                                   WHERE ro.opcion_id = o.id_opcion 
