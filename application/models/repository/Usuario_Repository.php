@@ -22,6 +22,7 @@ class Usuario_Repository extends CI_Model
                                 ->or_where('email', $username)
                             ->group_end()
                             ->where('password', $password)
+                            ->where('baja', FALSE)
                             ->get($this->table);
 
         return $result->row();//devuelvo el objeto StdClass para evitar que figuren los campos password y baja
@@ -40,9 +41,9 @@ class Usuario_Repository extends CI_Model
                             ->group_end()
                             ->where('id_usuario', $user->id_usuario)
                             ->where('codigo_sistema', $system_code)
-                            ->like('version', $system_version . '.', 'after')//Ej.: "version LIKE '1.%'"
+                            ->like('version', $system_version . '.', 'after')//Ej.: "version LIKE '1%'"
                             ->get($this->permisos_usuario);
-        log_message('debug',$this->db->last_query());
+        
         return $result->row(0, 'V_Usuario_Opciones_DTO');
     }
 

@@ -69,7 +69,7 @@ class Usuario extends \Restserver\Libraries\REST_Controller
                 $response['status'] = parent::HTTP_BAD_REQUEST;
                 $response['message'] = $this->form_validation->get_errors();
             }
-        } catch (Throwable $err) {
+        } catch (Throwable $error) {
             log_message('error', print_r($error, true));
 
             $response['status'] = parent::HTTP_INTERNAL_SERVER_ERROR;
