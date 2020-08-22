@@ -770,7 +770,7 @@ INSERT INTO `access_control`.`sistema` (`descripcion`, `codigo`, `version`) VALU
 
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Alumno', 'controlador de alumnos', 'alumno', '1');
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Apariencia', 'controlador de apariencia', 'apariencia', '1');
-INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Bancos', 'controlador de bancos', 'bancos', '1');
+INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Banco', 'controlador de banco', 'banco', '1');
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Becas', 'controlador de becas', 'becas', '1');
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('CertificadoAnalitico', 'controlador de certificado_analitico', 'certificado_analitico', '1');
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Ciclo', 'controlador de ciclo', 'ciclo', '1');
@@ -782,13 +782,15 @@ INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sist
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Parametro', 'controlador de Parametro', 'parametro', '1');
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('PermisoExamen', 'controlador de PermisoExamen', 'permiso_examen', '1');
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('ReservaVacante', 'controlador de ReservaVacante', 'reserva_vacante', '1');
-
+-- FIXME sólo para pruebas
+INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Prueba', 'pruebas', 'prueba', '1');
+INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Prueba', 'pruebas', 'prueba/prueba', '1');
 
 INSERT INTO `access_control`.`rol` (`descripcion`) VALUES ('administrador');
 INSERT INTO `access_control`.`rol` (`descripcion`) VALUES ('administrativo');
 
 INSERT INTO rol_opcion (opcion_id,rol_id) SELECT o.id_opcion,1 FROM opcion o;
-INSERT INTO rol_opcion (opcion_id,rol_id) SELECT o.id_opcion,2 FROM opcion o WHERE o.codigo NOT IN('Apariencia','Bancos','Becas','Parametro');
+INSERT INTO rol_opcion (opcion_id,rol_id) SELECT o.id_opcion,2 FROM opcion o WHERE o.codigo NOT IN('Apariencia','Banco','Becas','Parametro');
 
 INSERT INTO opcion (codigo,descripcion,recurso,opcion_padre_id,sistema_id)
 SELECT 
@@ -855,11 +857,11 @@ INSERT INTO rol_opcion (opcion_id,rol_id) SELECT o.id_opcion,1 FROM opcion o WHE
 INSERT INTO rol_opcion (opcion_id,rol_id) SELECT o.id_opcion
                                              , 2 
                                        FROM opcion o 
-                                                   WHERE o.codigo NOT IN('Apariencia','Bancos','Becas','Parametro') 
+                                                   WHERE o.codigo NOT IN('Apariencia','Banco','Becas','Parametro') 
                                           AND NOT EXISTS(SELECT 1 
                                                    FROM opcion o2 
                                                                   WHERe o.opcion_padre_id = o2.id_opcion
-                                                      AND o2.codigo IN('Apariencia','Bancos','Becas','Parametro'))
+                                                      AND o2.codigo IN('Apariencia','Banco','Becas','Parametro'))
                                           AND NOT EXISTS(SELECT 1 
                                                    FROM rol_opcion ro 
                                                                   WHERE ro.opcion_id = o.id_opcion 
