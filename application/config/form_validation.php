@@ -40,7 +40,12 @@ $config = [
     // lista todos los permisos
     'getPermissions' => [
         [
-            'field' => 'system',
+            'field' => 'system_code',
+            'label' => 'sistema',
+            'rules' => 'trim|required'
+        ],
+        [
+            'field' => 'system_version',
             'label' => 'sistema',
             'rules' => 'trim|required'
         ]

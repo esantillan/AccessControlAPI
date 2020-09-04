@@ -784,9 +784,7 @@ INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sist
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('ReservaVacante', 'controlador de ReservaVacante', 'reserva_vacante', '1');
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Tarjeta', 'controlador de Tarjeta (tabla "seleccionartarjeta")', 'tarjeta', '1');
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Cobro', 'controlador de Cobros', 'cobro', '1');
--- FIXME sólo para pruebas
-INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Prueba', 'pruebas', 'prueba', '1');
-INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Prueba', 'pruebas', 'prueba/prueba', '1');
+
 
 INSERT INTO `access_control`.`rol` (`descripcion`) VALUES ('administrador');
 INSERT INTO `access_control`.`rol` (`descripcion`) VALUES ('administrativo');
@@ -855,6 +853,11 @@ SELECT
 FROM Opcion o
 WHERE opcion_padre_id IS NULL;
 
+INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Login/getPermissions', 'Metodo para listar los permisos, todos los usuarios deben tener esta opcion', 'login/getPermissions', '1');
+-- FIXME sólo para pruebas
+INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Prueba', 'pruebas', 'prueba', '1');
+INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Prueba', 'pruebas', 'prueba/prueba', '1');
+
 INSERT INTO rol_opcion (opcion_id,rol_id) SELECT o.id_opcion,1 FROM opcion o WHERE NOT EXISTS(SELECT 1 FROM rol_opcion ro WHERE ro.opcion_id = o.id_opcion AND ro.rol_id = 1);
 INSERT INTO rol_opcion (opcion_id,rol_id) SELECT o.id_opcion
                                              , 2 
@@ -881,3 +884,5 @@ INSERT INTO `access_control`.`allowed_origins` (`sistema_id`, `origin`, `descrip
 UPDATE `access_control`.`usuario` SET `password`='5ffe86722fa303abd5993078b55bdd384868b5c75ac806d0edd790ae87450d4e42e72479a4256dd612047a9644a9854f55d9850437d94fd00656f957cc66272a' WHERE `id_usuario`='1';
 -- user: esantillan, pass: esantillan hash_hmac('sha512', 'esantillan', 'estebansantillan96@gmail.com')
 UPDATE `access_control`.`usuario` SET `password`='b8e840fe7acb42b312660f1a5b8897b432ca02459a10a563a62b1de2da006fbdc416f38cd9122bad8ae6c8fa24cb3a99e7cfb845daae874295844a3a93939e34' WHERE `id_usuario`='2';
+
+
