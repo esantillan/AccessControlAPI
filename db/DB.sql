@@ -778,10 +778,12 @@ INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sist
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Curso', 'controlador de curso', 'curso', '1');
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Deudores', 'controlador de deudores', 'deudores', '1');
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Division', 'controlador de Division', 'division', '1');
-INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Pagos', 'controlador de Pagos', 'pagos', '1');
+INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Pago', 'controlador de Pago', 'pago', '1');
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Parametro', 'controlador de Parametro', 'parametro', '1');
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('PermisoExamen', 'controlador de PermisoExamen', 'permiso_examen', '1');
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('ReservaVacante', 'controlador de ReservaVacante', 'reserva_vacante', '1');
+INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Tarjeta', 'controlador de Tarjeta (tabla "seleccionartarjeta")', 'tarjeta', '1');
+INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Cobro', 'controlador de Cobros', 'cobro', '1');
 -- FIXME sólo para pruebas
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Prueba', 'pruebas', 'prueba', '1');
 INSERT INTO `access_control`.`opcion` (`codigo`, `descripcion`, `recurso`, `sistema_id`) VALUES ('Prueba', 'pruebas', 'prueba/prueba', '1');

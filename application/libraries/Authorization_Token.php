@@ -33,13 +33,15 @@ class Authorization_Token
      */
     protected $token_header = ['authorization','Authorization'];
 
+    private $token;
+
     /**
      * Token Expire Time
      * ----------------------
      * ( 1 Day ) : 60 * 60 * 24 = 86400
      * ( 1 Hour ) : 60 * 60     = 3600
      */
-    protected $token_expire_time = 86400;//FIXME para pruebas establezco la validez del token en 1 día
+    public $token_expire_time = 86400;//FIXME para pruebas establezco la validez del token en 1 día
 
     public function __construct()
 	{
@@ -64,7 +66,8 @@ class Authorization_Token
     public function generateToken($data)
     {
         try {
-            return JWT::encode($data, $this->token_key, $this->token_algorithm);
+            $this->token = JWT::encode($data, $this->token_key, $this->token_algorithm);
+            return $this->token;
         }
         catch(Exception $e) {
             return 'Message: ' .$e->getMessage();
@@ -241,7 +244,7 @@ class Authorization_Token
          * Authorization Header Exists
          */
         $token_data = $this->tokenIsExist($headers);
-        if($token_data['status'] === TRUE)
+        if($token_data['status'] === TRUE || !empty($this->token))
         {
             try
             {
@@ -249,7 +252,10 @@ class Authorization_Token
                  * Token Decode
                  */
                 try {
-                    $token_decode = JWT::decode($headers[$token_data['key']], $this->token_key, array($this->token_algorithm));
+                    if(empty($this->token)){
+                        $this->token = $headers[$token_data['key']];
+                    }
+                    $token_decode = JWT::decode($this->token, $this->token_key, array($this->token_algorithm));
                 }
                 catch(Exception $e) {
                     return ['status' => FALSE, 'message' => $e->getMessage()];

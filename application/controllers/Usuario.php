@@ -46,9 +46,6 @@ class Usuario extends \Restserver\Libraries\REST_Controller
                 //busco al usuario por ( nick o email ) y contraseña
 
                 if (isset($user)) {
-                    //credenciales válidas
-                    $this->load->library('Authorization_Token');
-
                     $token_data['user'] = $user;
                     $token_data['time'] = time();
 
@@ -56,7 +53,10 @@ class Usuario extends \Restserver\Libraries\REST_Controller
 
                     $response['status'] = parent::HTTP_OK;
                     $response['message'] = 'Ok';
-                    $response['data'] = $token;
+                    $response['data'] = $this->authorization_token->userdata();
+                    $response['data']->token = $token;
+                    $response['data']->expire =  $token_data['time'] + $this->authorization_token->token_expire_time;
+
                 } else {
                     //credenciales inválidas
                     $response['status'] = parent::HTTP_UNAUTHORIZED;
@@ -116,6 +116,45 @@ class Usuario extends \Restserver\Libraries\REST_Controller
         }
     }
 
+    public function regenerateToken_post()
+    {
+        $response = [
+            'status' => null,
+            'message' => null
+        ];
+
+        try {
+            //valido el token
+            $result = $this->authorization_token->validateToken();
+
+            if ($result['status']) {
+                $token_data = $this->authorization_token->userData();
+                $token_data->time = time();
+
+                $token = $this->authorization_token->generateToken($token_data);
+
+                $response['status'] = parent::HTTP_OK;
+                $response['message'] = 'Ok';
+                $response['data'] = $this->authorization_token->userdata();
+                $response['data']->token = $token;
+                $response['data']->expire =  $token_data->time + $this->authorization_token->token_expire_time;
+            } else {
+                //token inválido
+                log_message('error', print_r($result['message'], true));
+
+                $response['status'] = parent::HTTP_BAD_REQUEST;
+                $response['message'] = $result['message'];
+            }
+        } catch (Throwable $error) {
+            log_message('error', print_r($error, true));
+
+            $response['status'] = parent::HTTP_INTERNAL_SERVER_ERROR;
+            $response['message'] = 'Se ha producido un error interno del servidor, por favor intentelo de nuevo más tarde o contactese con el administrador si el problema persiste';
+        } finally {
+            $this->response($response, $response['status']);
+        }
+    }
+
     /**
     * Comprueba que se tenga permiso para acceder al recurso y devuelve
     * un status 200 en caso de afirmativo, sino un 403
@@ -153,6 +192,7 @@ class Usuario extends \Restserver\Libraries\REST_Controller
                         //compruebo que tenga permiso
                         $response['status'] = parent::HTTP_OK;
                         $response['message'] = 'Ok';
+                        $response['data'] = $data;
                     } else {
                         //no tiene permiso
                         $response['status'] = parent::HTTP_FORBIDDEN;

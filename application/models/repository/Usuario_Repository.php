@@ -24,8 +24,9 @@ class Usuario_Repository extends CI_Model
                             ->where('password', $password)
                             ->where('baja', FALSE)
                             ->get($this->table);
-
-        return $result->row();//devuelvo el objeto StdClass para evitar que figuren los campos password y baja
+        $user = $result->row();
+        settype($user->id_usuario, 'integer');
+        return $user;//devuelvo el objeto StdClass para evitar que figuren los campos password y baja
     }
 
     /**
