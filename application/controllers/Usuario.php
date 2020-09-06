@@ -1,11 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-require APPPATH . '/libraries/REST_Controller.php';
-require APPPATH . 'libraries/Format.php';
-
-use Restserver\libraries\REST_Controller;
-
-class Usuario extends \Restserver\Libraries\REST_Controller
+class Usuario extends MY_Controller
 {
     public function __construct()
     {

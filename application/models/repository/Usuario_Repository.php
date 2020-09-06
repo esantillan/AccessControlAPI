@@ -2,7 +2,7 @@
 require APPPATH .  'models/DTO/Usuario_DTO.php';
 require APPPATH .  'models/DTO/V_Usuario_Opciones_DTO.php';
 
-class Usuario_Repository extends CI_Model
+class Usuario_Repository extends MY_Model
 {
     protected $table = 'usuario';
     protected $permisos_usuario = 'v_usuario_opciones';
@@ -54,7 +54,7 @@ class Usuario_Repository extends CI_Model
      */
     public function getPermissionsByUser($user, $system_code, $system_version)
     {
-        $result = $this->db->select(['id_opcion', 'descripcion_opcion', 'recurso'])
+        $result = $this->db->select(['id_opcion', 'codigo_opcion', 'descripcion_opcion', 'recurso'])
                             ->distinct()
                             ->where('id_usuario', $user->id_usuario)
                             ->where('codigo_sistema', $system_code)
